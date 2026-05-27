@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Pastebin 2</title>
+</head>
+<body style="font-family: Arial; background:#111; color:white; padding:20px">
+
+  <h1>Pastebin 2</h1>
+
+  <textarea id="text" style="width:100%; height:200px;"></textarea>
+  <br><br>
+
+  <button onclick="createPaste()">Criar link</button>
+
+  <p id="result"></p>
+
+  <script>
+    async function createPaste() {
+      const text = document.getElementById("text").value;
+
+      const res = await fetch("https://SEU-WORKER_URL/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text })
+      });
+
+      const data = await res.json();
+
+      document.getElementById("result").innerHTML =
+        "Link criado: <a href='" + data.url + "' target='_blank'>" + data.url + "</a>";
+    }
+  </script>
+
+</body>
+</html>
